@@ -1,18 +1,23 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-  </div>
+  <HomeSlider></HomeSlider>
+  <Carousel></Carousel>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import Carousel from "../components/Carousel.vue";
+import HomeSlider from "../components/HomeSlider.vue";
+import { defineComponent, onMounted } from "vue";
 
 export default defineComponent({
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    HelloWorld,
+    Carousel: Carousel,
+    HomeSlider: HomeSlider,
+  },
+  setup() {
+    onMounted(() => {
+      document.title = "Home";
+    });
   },
 });
 </script>
