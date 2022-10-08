@@ -8,54 +8,26 @@
         <div class="carousel-body-outer">
           <div class="carousel-body" :style="carouselBodyStyle">
             <div
+              v-bind:style="{ width: carouselItemWidth + 'px' }"
               class="carousel-item"
               v-for="product in latestProducts"
               :key="product.id"
-              :style="carouselItemStyle"
             >
-              <router-link :to="product.get_absolute_url">
-                <div class="item-thumbnail">
-                  <img :src="product.get_thumbnail" alt="" />
-                </div>
-              </router-link>
-              <div class="item-meta">
-                <router-link :to="product.get_absolute_url" class="item-name">{{
-                  product.name
-                }}</router-link>
-                <div class="item-price">
-                  <span>{{ product.price }}₽</span>
-                </div>
-                <button class="item-cart" @click="addToCart(product)">
-                  <svg
-                    class="svg-inline"
-                    aria-hidden="true"
-                    focusable="false"
-                    data-prefix="fal"
-                    data-icon="cart-shopping"
-                    role="img"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 576 512"
-                    data-fa-i2svg=""
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M80 0C87.47 0 93.95 5.17 95.6 12.45L100 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H158.2L172.8 352H496C504.8 352 512 359.2 512 368C512 376.8 504.8 384 496 384H160C152.5 384 146.1 378.8 144.4 371.5L67.23 32H16C7.164 32 0 24.84 0 16C0 7.164 7.164 0 16 0H80zM107.3 64L150.1 256H487.8L541.8 64H107.3zM128 456C128 425.1 153.1 400 184 400C214.9 400 240 425.1 240 456C240 486.9 214.9 512 184 512C153.1 512 128 486.9 128 456zM184 480C197.3 480 208 469.3 208 456C208 442.7 197.3 432 184 432C170.7 432 160 442.7 160 456C160 469.3 170.7 480 184 480zM512 456C512 486.9 486.9 512 456 512C425.1 512 400 486.9 400 456C400 425.1 425.1 400 456 400C486.9 400 512 425.1 512 456zM456 432C442.7 432 432 442.7 432 456C432 469.3 442.7 480 456 480C469.3 480 480 469.3 480 456C480 442.7 469.3 432 456 432z"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
+              <ProductBox :prdct="product"></ProductBox>
             </div>
           </div>
         </div>
         <div class="carousel-navigation">
           <button class="carousel-prev">
             <span
+              v-show="currentSlide"
               class="arrow-button arrow-prev"
               @click="switchSlide(false)"
             ></span>
           </button>
           <button class="carousel-next">
             <span
+              v-show="showNextButton"
               class="arrow-button arrow-next"
               @click="switchSlide(true)"
             ></span>
@@ -67,15 +39,17 @@
 </template>
 
 <script lang="ts">
-import { computed, onMounted, defineComponent } from "vue";
+import { computed, onBeforeMount, defineComponent } from "vue";
 import { ref } from "vue";
-import { product, cartitem } from "../store/index";
-import { useStore } from "vuex";
+import ProductBox from "../components/ProductBox.vue";
 
 export default defineComponent({
   name: "Carousel",
-  setup() {
-    const store = useStore();
+  components: {
+    ProductBox: ProductBox,
+  },
+  props:["lp"],
+  setup(props) {
     const itemNum = ref<number>(15);
     const itemsPerSlide = ref<number>(5);
     const currentSlide = ref<number>(0);
@@ -106,25 +80,23 @@ export default defineComponent({
       return b;
     }
 
-    const carouselItemStyle = computed(() => {
-      return `width: ${carouselItemWidth.value}px`;
-    });
-
     async function getLatestProducts() {
       const data = await fetch(
-        "http://127.0.0.1:8000/api/v1/latest-products/"
+       props.lp
       ).then((response) => response.json());
       latestProducts.value = data;
       itemNum.value = Object.keys(data).length;
     }
 
-    function addToCart(product: product) {
-      const item: cartitem = {
-        product: product,
-        quantity: 1,
-      };
-      store.commit("addToCart", item);
-    }
+    const showNextButton = computed(() => {
+      if (
+        currentSlide.value ==
+        Math.ceil(itemNum.value / itemsPerSlide.value) - 1
+      ) {
+        return false;
+      }
+      return true;
+    });
 
     function switchSlide(next: boolean) {
       if (next) {
@@ -139,7 +111,15 @@ export default defineComponent({
 
     function adjustResize() {
       const a: number = getw();
-      if (a < 768) {
+      if(a < 550){
+        carouselItemWidth.value = a * 0.7;
+         carouselItemPadding.value = 40;
+        itemsPerSlide.value = 1;
+        carouselBodyWidth.value =
+          (carouselItemWidth.value + 15) * itemNum.value + 80;
+        currentSlide.value = 0;
+        return;
+      } else if (a < 768) {
         carouselItemWidth.value = 430;
         carouselItemPadding.value = 40;
         itemsPerSlide.value = 1;
@@ -176,7 +156,7 @@ export default defineComponent({
       window.addEventListener("resize", adjustResize);
     }
 
-    onMounted(() => {
+    onBeforeMount(() => {
       getLatestProducts();
       resizeListen();
       adjustResize();
@@ -186,16 +166,17 @@ export default defineComponent({
       itemNum,
       carouselBodyWidth,
       carouselBodyStyle,
-      carouselItemStyle,
+      carouselItemWidth,
       latestProducts,
       switchSlide,
-      addToCart,
+      currentSlide,
+      showNextButton,
     };
   },
 });
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .carousel {
   position: relative;
   margin-bottom: 3rem;
@@ -350,6 +331,7 @@ export default defineComponent({
   width: 100%;
   text-align: center;
   overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.17, 0.67, 0.21, 1);
 }
 
 .item-price {
