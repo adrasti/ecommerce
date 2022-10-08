@@ -45,6 +45,20 @@
   font-style: normal;
   src: url("~@/assets/Nunito-Bold.ttf");
 }
+
+@font-face {
+  font-family: RobotInvaders-Italic;
+  font-weight: 500;
+  font-style: italic;
+  src: url("~@/assets/RobotInvadersItalic-7BvnV.ttf");
+}
+
+@font-face {
+  font-family: Robot-Invaders;
+  font-weight: 500;
+  font-style: normal;
+  src: url("~@/assets/RobotInvaders-d9VmR.ttf");
+}
 $breakpoint-sm: 576px;
 
 $breakpoint-md: 768px;
