@@ -30,6 +30,7 @@
 </template>
 
 <script lang="ts">
+import axios, { AxiosError } from "axios";
 import { defineComponent, onMounted, ref, inject } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -38,7 +39,7 @@ import { cartitem, product } from "../store/index";
 export default defineComponent({
   name: "Product",
   setup() {
-    const root = inject('root');
+    const root = inject("root");
     const router = useRouter();
     const store = useStore();
     const quantity = ref<number>(1);
@@ -55,23 +56,22 @@ export default defineComponent({
       const route = useRoute();
       const category_slug = route.params.category_slug;
       const product_slug = route.params.product_slug;
-
-      let data;
-
-      try {
-        const fdata = await fetch(
-          `${root}/products/${category_slug}/${product_slug}`
-        );
-        if (fdata.status == 404) {
-          router.push("/404");
-        }
-        data = await fdata.json();
-      } catch (e) {
-        console.log(e);
-      }
-
-      product.value = data;
-      document.title = data.name;
+      await axios
+        .get(`${root}/products/${category_slug}/${product_slug}`)
+        .then((response) => {
+          product.value = response.data;
+          document.title = response.data.name;
+        })
+        .catch((e: Error | AxiosError) => {
+          if (axios.isAxiosError(e)) {
+            if (e.response) {
+              if (e.response.status === 404) {
+                router.push("/404");
+              }
+            }
+          }
+          console.log(e);
+        });
     }
 
     function addToCart() {
@@ -168,7 +168,7 @@ export default defineComponent({
     font-weight: 500;
   }
   margin-left: 20px;
-  margin-right:20px;
+  margin-right: 20px;
 }
 
 @media (max-width: $breakpoint-lg) {

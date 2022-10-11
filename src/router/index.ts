@@ -7,7 +7,11 @@ import Cart from "../views/Cart.vue";
 
 import Category from "../views/Category.vue";
 
-import NotFound from "../components/404.vue";
+import SignUp from "../views/SignUp.vue";
+
+import LogIn from "../views/LogIn.vue";
+
+import MyAccount from "../views/MyAccount.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Category,
     children: [
       {
-        name:"page",
+        name: "page",
         path: "page/:page_num",
         component: Category,
       },
@@ -37,6 +41,21 @@ const routes: Array<RouteRecordRaw> = [
     path: "/cart",
     name: "Cart",
     component: Cart,
+  },
+  {
+    path: "/myaccount",
+    name: "MyAccount",
+    component: MyAccount,
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: SignUp,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LogIn,
   },
   {
     path: "/:pathMatch(.*)*",

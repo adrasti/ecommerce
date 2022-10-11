@@ -34,6 +34,14 @@ export default createStore({
       } else {
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
+
+      if (localStorage.getItem("token")) {
+        state.token = localStorage.getItem("token") || "";
+        state.isAuth = true;
+      } else {
+        state.token = "";
+        state.isAuth = false;
+      }
     },
     addToCart(state, item: cartitem) {
       const exists = state.cart.items.filter(
@@ -54,10 +62,18 @@ export default createStore({
       );
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
-    removeEverything(state){
+    setToken(state, token) {
+      state.token = token;
+      state.isAuth = true;
+    },
+    removeToken(state) {
+      state.token = "";
+      state.isAuth = false;
+    },
+    removeEverything(state) {
       state.cart.items = [];
       localStorage.setItem("cart", JSON.stringify(state.cart));
-    }
+    },
   },
   actions: {},
   modules: {},

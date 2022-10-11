@@ -29,6 +29,7 @@ export default defineComponent({
     overflow: hidden;
     position: relative;
     margin-bottom: 50px;
+    text-align: center;
 }
 
 @media (min-width: $breakpoint-lg){

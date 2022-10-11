@@ -39,6 +39,7 @@
 </template>
 
 <script lang="ts">
+import axios, { AxiosError } from "axios";
 import { computed, onBeforeMount, defineComponent } from "vue";
 import { ref } from "vue";
 import ProductBox from "../components/ProductBox.vue";
@@ -48,7 +49,7 @@ export default defineComponent({
   components: {
     ProductBox: ProductBox,
   },
-  props:["lp"],
+  props: ["lp"],
   setup(props) {
     const itemNum = ref<number>(15);
     const itemsPerSlide = ref<number>(5);
@@ -81,11 +82,15 @@ export default defineComponent({
     }
 
     async function getLatestProducts() {
-      const data = await fetch(
-       props.lp
-      ).then((response) => response.json());
-      latestProducts.value = data;
-      itemNum.value = Object.keys(data).length;
+      await axios
+        .get(props.lp)
+        .then((response) => {
+          latestProducts.value = response.data;
+          itemNum.value = Object.keys(latestProducts.value).length;
+        })
+        .catch((e: Error | AxiosError) => {
+          console.log(e);
+        });
     }
 
     const showNextButton = computed(() => {
@@ -111,9 +116,9 @@ export default defineComponent({
 
     function adjustResize() {
       const a: number = getw();
-      if(a < 550){
+      if (a < 550) {
         carouselItemWidth.value = a * 0.7;
-         carouselItemPadding.value = 40;
+        carouselItemPadding.value = 40;
         itemsPerSlide.value = 1;
         carouselBodyWidth.value =
           (carouselItemWidth.value + 15) * itemNum.value + 80;

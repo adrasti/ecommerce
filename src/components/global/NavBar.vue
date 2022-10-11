@@ -74,12 +74,12 @@
               >
                 <defs>
                   <component :is="'style'">
-                    .cls-1 { font-size: 28px; fill: #fff; font-family: Robot-Invaders,
-                    RobotInvaders-Italic; font-style: italic; text-overflow:"" }
-                    .cls-2 { letter-spacing: -0.2em; } .cls-3 { fill: #fddd59; }
-                    .cls-4 { fill: #5dd5cfa3; } .cls-5 { fill: #f89e66; } .cls-6 {
-                    fill: #f89a60; } .cls-7 { fill: #f8a06a; } .cls-8 { fill:
-                    #f8995e; }
+                    .cls-1 { font-size: 28px; fill: #fff; font-family:
+                    Robot-Invaders, RobotInvaders-Italic; font-style: italic;
+                    text-overflow:"" } .cls-2 { letter-spacing: -0.2em; } .cls-3
+                    { fill: #fddd59; } .cls-4 { fill: #5dd5cfa3; } .cls-5 {
+                    fill: #f89e66; } .cls-6 { fill: #f89a60; } .cls-7 { fill:
+                    #f8a06a; } .cls-8 { fill: #f8995e; }
                   </component>
                 </defs>
                 <g id="Layer_2" data-name="Layer 2">
@@ -172,29 +172,56 @@
             <a href="">Корзина</a>
           </div>
         </router-link>
-        <router-link to="/login" class="header-access-item access-login">
-          <div class="access-icon">
-            <svg
-              class="svg-inline"
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fal"
-              data-icon="user"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              data-fa-i2svg=""
-            >
-              <path
-                fill="currentColor"
-                d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM224 32c52.94 0 96 43.06 96 96c0 52.93-43.06 96-96 96S128 180.9 128 128C128 75.06 171.1 32 224 32zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM413.3 480H34.66C33.2 480 32 478.8 32 477.3C32 399.4 95.4 336 173.3 336h101.3C352.6 336 416 399.4 416 477.3C416 478.8 414.8 480 413.3 480z"
-              ></path>
-            </svg>
-          </div>
-          <div class="access-link">
-            <a href="">Войти</a>
-          </div>
-        </router-link>
+        <template v-if="showLogIn">
+          <router-link to="/login" class="header-access-item access-login">
+            <div class="access-icon">
+              <svg
+                class="svg-inline"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fal"
+                data-icon="user"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                data-fa-i2svg=""
+              >
+                <path
+                  fill="currentColor"
+                  d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM224 32c52.94 0 96 43.06 96 96c0 52.93-43.06 96-96 96S128 180.9 128 128C128 75.06 171.1 32 224 32zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM413.3 480H34.66C33.2 480 32 478.8 32 477.3C32 399.4 95.4 336 173.3 336h101.3C352.6 336 416 399.4 416 477.3C416 478.8 414.8 480 413.3 480z"
+                ></path>
+              </svg>
+            </div>
+            <div class="access-link">
+              <a href="">Войти</a>
+            </div>
+          </router-link>
+        </template>
+        <template v-else>
+          <router-link to="/myaccount" class="header-access-item access-login">
+            <div class="access-icon">
+              <svg
+                class="svg-inline"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fal"
+                data-icon="user"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                data-fa-i2svg=""
+              >
+                <path
+                  fill="currentColor"
+                  d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM224 32c52.94 0 96 43.06 96 96c0 52.93-43.06 96-96 96S128 180.9 128 128C128 75.06 171.1 32 224 32zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304zM413.3 480H34.66C33.2 480 32 478.8 32 477.3C32 399.4 95.4 336 173.3 336h101.3C352.6 336 416 399.4 416 477.3C416 478.8 414.8 480 413.3 480z"
+                ></path>
+              </svg>
+            </div>
+            <div class="access-link">
+              <a href="">Аккаунт</a>
+            </div>
+          </router-link>
+        </template>
       </div>
     </div>
     <div class="mobile-menu" :class="{ 'menu-is-open': showMobileMenu }">
@@ -205,24 +232,44 @@
               <div class="header-category" @click="collapseMenu">
                 <span>Клавиатуры</span>
               </div>
-             </router-link>
+            </router-link>
           </li>
-          <li><router-link to="/mice">
-          <div class="header-category" @click="collapseMenu">
-            <span>Мыши</span>
-          </div>
-        </router-link></li>
-          <li><router-link to="/headphones">
-          <div class="header-category" @click="collapseMenu">
-            <span>Наушники</span>
-          </div>
-        </router-link></li>
+          <li>
+            <router-link to="/mice">
+              <div class="header-category" @click="collapseMenu">
+                <span>Мыши</span>
+              </div>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/headphones">
+              <div class="header-category" @click="collapseMenu">
+                <span>Наушники</span>
+              </div>
+            </router-link>
+          </li>
         </ul>
         <div class="mobile-menu-bottom">
           <div class="mobile-menu-cart">
             <router-link to="/cart" @click="collapseMenu">
-              <svg class="svg-inline" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="cart-shopping" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M80 0C87.47 0 93.95 5.17 95.6 12.45L100 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H158.2L172.8 352H496C504.8 352 512 359.2 512 368C512 376.8 504.8 384 496 384H160C152.5 384 146.1 378.8 144.4 371.5L67.23 32H16C7.164 32 0 24.84 0 16C0 7.164 7.164 0 16 0H80zM107.3 64L150.1 256H487.8L541.8 64H107.3zM128 456C128 425.1 153.1 400 184 400C214.9 400 240 425.1 240 456C240 486.9 214.9 512 184 512C153.1 512 128 486.9 128 456zM184 480C197.3 480 208 469.3 208 456C208 442.7 197.3 432 184 432C170.7 432 160 442.7 160 456C160 469.3 170.7 480 184 480zM512 456C512 486.9 486.9 512 456 512C425.1 512 400 486.9 400 456C400 425.1 425.1 400 456 400C486.9 400 512 425.1 512 456zM456 432C442.7 432 432 442.7 432 456C432 469.3 442.7 480 456 480C469.3 480 480 469.3 480 456C480 442.7 469.3 432 456 432z"></path></svg>
-            </router-link>         <div>Сумма: {{totalPrice}}₽</div>
+              <svg
+                class="svg-inline"
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fal"
+                data-icon="cart-shopping"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 576 512"
+                data-fa-i2svg=""
+              >
+                <path
+                  fill="currentColor"
+                  d="M80 0C87.47 0 93.95 5.17 95.6 12.45L100 32H541.8C562.1 32 578.3 52.25 572.6 72.66L518.6 264.7C514.7 278.5 502.1 288 487.8 288H158.2L172.8 352H496C504.8 352 512 359.2 512 368C512 376.8 504.8 384 496 384H160C152.5 384 146.1 378.8 144.4 371.5L67.23 32H16C7.164 32 0 24.84 0 16C0 7.164 7.164 0 16 0H80zM107.3 64L150.1 256H487.8L541.8 64H107.3zM128 456C128 425.1 153.1 400 184 400C214.9 400 240 425.1 240 456C240 486.9 214.9 512 184 512C153.1 512 128 486.9 128 456zM184 480C197.3 480 208 469.3 208 456C208 442.7 197.3 432 184 432C170.7 432 160 442.7 160 456C160 469.3 170.7 480 184 480zM512 456C512 486.9 486.9 512 456 512C425.1 512 400 486.9 400 456C400 425.1 425.1 400 456 400C486.9 400 512 425.1 512 456zM456 432C442.7 432 432 442.7 432 456C432 469.3 442.7 480 456 480C469.3 480 480 469.3 480 456C480 442.7 469.3 432 456 432z"
+                ></path>
+              </svg>
+            </router-link>
+            <div>Сумма: {{ totalPrice }}₽</div>
           </div>
           <div class="mobile-menu-login">
             <div>Войти</div>
@@ -234,12 +281,8 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  computed,
-  onBeforeMount,
-  onMounted,
-} from "vue";
+import { defineComponent, computed, onBeforeMount, onMounted } from "vue";
+import axios, { AxiosError } from "axios";
 import { ref } from "vue";
 import type { cartItemArr } from "../../store/index";
 import { useStore } from "vuex";
@@ -272,24 +315,44 @@ export default defineComponent({
       for (let i = 0; i < store.state.cart.items.length; i++) {
         count =
           count +
-          store.state.cart.items[i].quantity * Number(store.state.cart.items[i].product.price);
+          store.state.cart.items[i].quantity *
+            Number(store.state.cart.items[i].product.price);
       }
       return count;
     });
 
-    const collapseMenu = ()=>{
+    const collapseMenu = () => {
       showMobileMenu.value = false;
-    }
+    };
 
     onBeforeMount(() => {
       store.commit("initializeStore");
+
+      const token = store.state.token;
+      if (token) {
+        axios.defaults.headers.common["Authorization"] = `Token ${token}`;
+      } else {
+        axios.defaults.headers.common["Authorization"] = "";
+      }
     });
 
     onMounted(() => {
       cart.value = store.state.cart;
     });
 
-    return { showMobileMenu, handleHamburger, cartTotalLength, showCartCount, totalPrice, collapseMenu };
+    const showLogIn = computed(() => {
+      return !store.state.isAuth;
+    });
+
+    return {
+      showMobileMenu,
+      handleHamburger,
+      cartTotalLength,
+      showCartCount,
+      totalPrice,
+      collapseMenu,
+      showLogIn,
+    };
   },
 });
 </script>
@@ -337,21 +400,21 @@ export default defineComponent({
 }
 
 .header-category {
-    display: none;
-    text-align: center;
-    position: relative;
-    float: left;
-    margin-right: 50px;
-    flex-basis: 20%;
-    flex-grow: 0;
-    max-width: 100%;
-    color: white;
-    font-size: 16px;
-    text-transform: uppercase;
-    font-weight: 599;
-    padding: 10px;
-    border: solid;
-  }
+  display: none;
+  text-align: center;
+  position: relative;
+  float: left;
+  margin-right: 50px;
+  flex-basis: 20%;
+  flex-grow: 0;
+  max-width: 100%;
+  color: white;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 599;
+  padding: 10px;
+  border: solid;
+}
 
 .mobile-menu {
   overflow: hidden;
@@ -363,37 +426,36 @@ export default defineComponent({
   z-index: 1040;
   left: -100%;
   transition: left 0.5s ease;
-  .header-category{
+  .header-category {
     display: block;
-    color:black;
+    color: black;
     border-color: black;
-    margin:20px;
+    margin: 20px;
     padding: 20px;
     width: 200px;
   }
-
 }
 
-.mobile-menu-bottom{
-  position:absolute;
+.mobile-menu-bottom {
+  position: absolute;
   width: 100%;
-  bottom:0;
+  bottom: 0;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  .mobile-menu-login{
-    div{
+  .mobile-menu-login {
+    div {
       font-weight: 500;
       padding: 10px;
       border: solid black 2px;
     }
   }
-  .mobile-menu-cart{
+  .mobile-menu-cart {
     text-align: center;
     margin-top: 8px;
-    svg{
-      font-size:23px;
+    svg {
+      font-size: 23px;
     }
   }
 }
@@ -402,10 +464,10 @@ export default defineComponent({
   width: 80%;
   height: 65vh;
   background-color: #efefef;
-  position:absolute;
+  position: absolute;
   display: flex;
   justify-content: center;
-  padding-top:50px;
+  padding-top: 50px;
 }
 
 .access-cart {
@@ -474,7 +536,7 @@ export default defineComponent({
 }
 
 .mobile-hamburger {
-  color: red;
+  color: #f46036;
   font-size: 35px;
   line-height: 10px;
 }
@@ -517,7 +579,7 @@ export default defineComponent({
     width: 52%;
     .header-category {
       display: block;
-      &:hover{
+      &:hover {
         background-color: hwb(180deg 78% 9% / 30%);
       }
     }

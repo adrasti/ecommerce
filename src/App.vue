@@ -16,7 +16,6 @@ export default {
     NavBar: NavBar,
     Footer: Footer,
   },
-  data() {},
 };
 </script>
 
@@ -31,6 +30,10 @@ body {
   line-height: 1.5;
   text-align: left;
   background-color: #f0f0f0;
+}
+
+main {
+  min-height: 60vh;
 }
 
 .svg-inline {
