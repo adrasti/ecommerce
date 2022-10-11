@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkecommerce_vue"]=self["webpackChunkecommerce_vue"]||[]).push([[904],{8904:function(n,e,u){u.r(e),u.d(e,{default:function(){return v}});var c=u(3396);const r={class:"container notfound"},t=(0,c._)("h1",null,"Ошибка 404",-1),o=(0,c._)("p",null,"Страница не найдена",-1),a=(0,c._)("div",null,"¯\\_(ツ)_/¯",-1),l=[t,o,a];function s(n,e,u,t,o,a){return(0,c.wg)(),(0,c.iD)("div",r,l)}var i=(0,c.aZ)({name:"NotFound",setup(){}}),d=u(89);const f=(0,d.Z)(i,[["render",s]]);var v=f}}]);
+//# sourceMappingURL=904.bcb5a4e7.js.map
